@@ -1,0 +1,96 @@
+# Mac Cleanup Agent Configuration
+
+# Ollama settings
+ollama:
+  base_url: "http://localhost:11434"
+  model: "gemma3:4b"  # Change to any Ollama model you have installed
+  temperature: 0.3
+  timeout: 30
+
+# Folders to organize
+folders:
+  - "~/Downloads"
+  - "~/Documents"
+  - "~/Desktop"
+
+# Organization settings
+organization:
+  base_path: "~/Documents/Organized"  # Where organized files will be stored
+  structure: "year/type"  # year->type folder structure
+  misc_folder: "misc"  # Folder name for unclassified files
+  
+# File type categories
+file_types:
+  images:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".gif"
+    - ".bmp"
+    - ".svg"
+    - ".webp"
+    - ".heic"
+  documents:
+    - ".pdf"
+    - ".doc"
+    - ".docx"
+    - ".txt"
+    - ".rtf"
+    - ".odt"
+    - ".md"
+  spreadsheets:
+    - ".xls"
+    - ".xlsx"
+    - ".csv"
+    - ".ods"
+  presentations:
+    - ".ppt"
+    - ".pptx"
+    - ".key"
+  videos:
+    - ".mp4"
+    - ".mov"
+    - ".avi"
+    - ".mkv"
+    - ".webm"
+    - ".flv"
+  audio:
+    - ".mp3"
+    - ".wav"
+    - ".aac"
+    - ".flac"
+    - ".m4a"
+  archives:
+    - ".zip"
+    - ".tar"
+    - ".gz"
+    - ".rar"
+    - ".7z"
+  code:
+    - ".py"
+    - ".js"
+    - ".java"
+    - ".cpp"
+    - ".c"
+    - ".html"
+    - ".css"
+    - ".json"
+    - ".xml"
+    - ".yaml"
+    - ".yml"
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "cleanup_agent.log"
+  retention_days: 7  # Keep logs for this many days
+
+# Safety settings
+safety:
+  dry_run: false  # Set to true to preview changes without moving files
+  min_age_days: 0  # Only organize files older than this many days
+  exclude_patterns:  # Files/folders to skip
+    - ".DS_Store"
+    - ".git"
+    - "node_modules"
+    - "__pycache__"
