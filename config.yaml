@@ -94,3 +94,17 @@ safety:
     - ".git"
     - "node_modules"
     - "__pycache__"
+
+# Cache cleanup settings
+cache_cleanup:
+  enabled:  # List of caches to clean (comment out to disable specific cleanups)
+    - "homebrew"      # Homebrew package cache (~2GB typically)
+    - "pip"           # Python pip cache (~50MB typically)
+    - "npm"           # Node.js npm cache (if installed)
+    - "vscode"        # VS Code cache (~600MB typically)
+    - "user_caches"   # Safe user caches (python, node-gyp, etc.)
+    - "chrome"        # Google Chrome cache (~1GB+, may log you out of sites)
+    # Uncomment to enable more browser cache cleanup:
+    # - "safari"      # Safari cache
+    # - "firefox"     # Firefox cache (if installed)
+

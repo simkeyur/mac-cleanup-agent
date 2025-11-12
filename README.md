@@ -6,9 +6,11 @@ An intelligent Python agent that automatically organizes files in your Downloads
 
 - 📁 **Smart Organization**: Organizes files into `year/type` folder structure
 - 🤖 **AI-Powered**: Uses Ollama for intelligent file classification
+- 🧹 **Cache Cleanup**: Automatically cleans system caches (Homebrew, pip, npm, VS Code)
 - ⚙️ **Configurable**: Easy YAML configuration with model switching
 - 🔒 **Safe**: Dry-run mode and file age filters to prevent accidents
 - 📊 **Comprehensive Logging**: Track all operations with detailed logs
+- 🗑️ **Log Rotation**: Automatic 7-day rolling log retention
 - ⏰ **Automation Ready**: Perfect for SwiftBar scheduled execution
 
 ## Structure
@@ -88,13 +90,45 @@ safety:
     - ".git"
 ```
 
+### Cache Cleanup Settings
+```yaml
+cache_cleanup:
+  enabled:
+    - "homebrew"      # Homebrew package cache (~2-4GB)
+    - "pip"           # Python pip cache (~50MB)
+    - "npm"           # Node.js npm cache (if installed)
+    - "vscode"        # VS Code cache (~600MB-1GB)
+    - "user_caches"   # Safe user caches (python, node-gyp)
+    # Optional browser cache cleanup (uncomment to enable):
+    # - "chrome"      # Google Chrome cache (~1GB+)
+    # - "safari"      # Safari cache
+    # - "firefox"     # Firefox cache
+```
+
+**Note**: Browser cache cleanup will clear browsing data and may log you out of websites. Enable only if needed.
+
 ## Usage
 
 ### Basic Usage
 
-Run the agent to organize all configured folders:
+Run the agent to organize files AND clean caches:
 ```bash
 python3 main.py
+```
+
+### Cache Cleanup Only
+
+Clean system caches without organizing files:
+```bash
+python3 main.py --cache-only --dry-run  # Preview
+python3 main.py --cache-only            # Actually clean
+```
+
+### Skip Cache Cleanup
+
+Organize files only, skip cache cleanup:
+```bash
+python3 main.py --skip-cache-cleanup
 ```
 
 ### Dry Run (Preview)

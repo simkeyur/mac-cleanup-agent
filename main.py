@@ -14,6 +14,7 @@ import yaml
 from file_organizer import FileOrganizer
 from ollama_classifier import OllamaClassifier
 from log_rotator import LogRotator
+from cache_cleaner import SystemCacheCleaner
 
 
 def load_config(config_path='config.yaml'):
@@ -82,6 +83,16 @@ def main():
         '--folder',
         help='Organize specific folder instead of all configured folders'
     )
+    parser.add_argument(
+        '--skip-cache-cleanup',
+        action='store_true',
+        help='Skip system cache cleanup'
+    )
+    parser.add_argument(
+        '--cache-only',
+        action='store_true',
+        help='Only run cache cleanup, skip file organization'
+    )
     
     args = parser.parse_args()
     
@@ -110,6 +121,16 @@ def main():
     
     if config['safety']['dry_run']:
         logger.warning("DRY RUN MODE - No files will be moved")
+    
+    # Run cache cleanup (unless skipped or in cache-only mode)
+    if not args.skip_cache_cleanup or args.cache_only:
+        cache_cleaner = SystemCacheCleaner(config)
+        cache_cleaner.clean_all()
+    
+    # Skip file organization if cache-only mode
+    if args.cache_only:
+        logger.info("Cache-only mode - skipping file organization")
+        sys.exit(0)
     
     # Initialize Ollama classifier
     ollama_classifier = None
